@@ -1,40 +1,52 @@
 // document.addEventListener("click", calcularInteres());
 // const Calcular = document.querySelector("#Calcular");
 
+class DatosUsuario {
+    constructor(precio, tasa, cuotas, descuento) {
+        this.precio=precio;
+        this.tasa=tasa;
+        this.cuotas=cuotas;
+        this.descuento=descuento;
+    }
+    
+}
+
 document.querySelector("#Calcular").addEventListener("click", calcularInteres());
 
 function calcularInteres() {
-    
-    let capital = parseFloat(document.getElementById("capital").value);
+
+    let precioLista = parseFloat(document.getElementById("precioLista").value);
     let tasaDeInteres = parseFloat(document.getElementById("tasaDeInteres").value);
-    let plazo = parseInt(document.getElementById("plazo").value);
+    let cuotas = parseInt(document.getElementById("cuotas").value);
+    let descuento = parseInt(document.getElementById("descuento").value);
 
     limpiaResultados();
-    let valida = validaDatos(capital,tasaDeInteres,plazo);
-    
+    let valida = validaDatos(precioLista, tasaDeInteres, cuotas, descuento);
+
     if (valida == true) {
+        const datos=new DatosUsuario(precioLista,tasaDeInteres,cuotas,descuento)
+        
 
-
-        for (let i = 0; i < plazo; i++) {
-            let interes = calculo(capital, tasaDeInteres);
-            escribeResultados(capital.toFixed(2), interes.toFixed(2), (interes + capital).toFixed(2), i + 1)
-            capital += interes;
+        for (let i = 0; i < cuotas; i++) {
+            let interes = calculo(precioLista, tasaDeInteres);
+            escribeResultados(precioLista.toFixed(2), interes.toFixed(2), (interes + precioLista).toFixed(2), i + 1)
+            precioLista += interes;
         }
     }
-    else{
+    else {
         console.log("No se puede hacer calculo")
     }
 }
 
-function calculo(capital, tasaDeInteres) {
-    let capitalCalculo = capital;
+function calculo(precioLista, tasaDeInteres) {
+    let precioListaCalculo = precioLista;
     let tasaDeInteresCalculo = tasaDeInteres;
     //Calculo de un mes
-    let interesCalculo = capitalCalculo * (tasaDeInteresCalculo / 100) / 12
+    let interesCalculo = precioListaCalculo * (tasaDeInteresCalculo / 100) / 12
     return interesCalculo
 }
 
-function escribeResultados(capital, interes, sumaCapitalInteres, mes) {
+function escribeResultados(precioLista, interes, sumaprecioListaInteres, mes) {
     document.querySelector("#result").insertAdjacentHTML(
         'beforeend',
 
@@ -42,7 +54,7 @@ function escribeResultados(capital, interes, sumaCapitalInteres, mes) {
         <div class="contenedor padre " >
             <div class="etiquetas campos mes"><span >Mes: ${mes}</span></div>
             <div class="campos">
-                <span class="etiquetas">Capital: </span>$ ${capital}
+                <span class="etiquetas">Capital: </span>$ ${precioLista}
             </div>
             <div class="campos">
                 <span class="etiquetas">Interes: </span>$ ${interes}
@@ -51,7 +63,7 @@ function escribeResultados(capital, interes, sumaCapitalInteres, mes) {
                 
             </div>            
             <div class="campos">
-                <span class="etiquetas">Capital + Interes: </span>$ ${sumaCapitalInteres}
+                <span class="etiquetas">Capital + Interes: </span>$ ${sumaprecioListaInteres}
             </div>
         </div>
         `
@@ -68,39 +80,42 @@ function limpiaResultados() {
 
 }
 
-function validaDatos(capital,tasaDeInteres,plazo) {
+function validaDatos(precioLista, tasaDeInteres, cuotas,descuento) {
 
-    
-    let valida=true;
 
-    let retorno1=validador(capital,"Capital")
-    if(retorno1==false){
-        valida=false;
-    }
-    let retorno2=validador(tasaDeInteres,"Tasa de interés")
-    if(retorno2==false){
-        valida=false;
-    }
-    let retorno3=validador(plazo,"Plazo")
-    if(retorno3==false){
-        valida=false;
-    }
+    let valida = true;
 
+    let retorno1 = validador(precioLista, "precioLista")
+    if (retorno1 == false) {
+        valida = false;
+    }
+    let retorno2 = validador(tasaDeInteres, "Tasa de interés")
+    if (retorno2 == false) {
+        valida = false;
+    }
+    let retorno3 = validador(cuotas, "cuotas")
+    if (retorno3 == false) {
+        valida = false;
+    }
+    let retorno4 = validador(descuento, "descuento")
+    if (retorno4 == false) {
+        valida = false;
+    }
     return valida
 }
 
-function validador(entradaValidador,campo){
+function validador(entradaValidador, campo) {
     let valida
-    if (isNaN(entradaValidador)==true){
-        valida=false;
+    if (isNaN(entradaValidador) == true) {
+        valida = false;
         alert(`El campo "${campo}" esta vacío`);
         console.log(entradaValidador)
     }
     else {
-        valida=true;
+        valida = true;
 
     }
-    
+
     return valida
 
 }
