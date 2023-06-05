@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simular de Plazo</title>
-
+    <script src="js/prueba.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/miarchivo.js"></script>
 
     <link rel="stylesheet" href="css/estilos.css">
@@ -14,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto+Mono:wght@100&display=swap"
         rel="stylesheet">
+    
 </head>
 
 <body>
@@ -22,12 +24,13 @@
         <form action="">
             <div class="campos">
                 <label for="precioLista" class="etiquetas">Precio de lista (sin descuento)</label>
-                <input type="number" id="precioLista" placeholder="Ingrese monto a invertir en pesos [ARS]" required autofocus
-                    class="input">
+                <input type="number" id="precioLista" placeholder="Ingrese monto a invertir en pesos [ARS]" required
+                    autofocus class="input">
             </div>
             <div class="campos">
                 <label for="tasaDeInteres" class="etiquetas">Tasa de interés anual (Hoy: 97%)</label>
-                <input type="number" id="tasaDeInteres" placeholder="Ingrese tasa de interés en %" required class="input">
+                <input type="number" id="tasaDeInteres" placeholder="Ingrese tasa de interés en %" required
+                    class="input">
             </div>
             <div class="campos">
                 <label for="cuotas" class="etiquetas">Cantidad de cuotas</label>
@@ -39,8 +42,8 @@
             </div>
             <div class="contenedorbotones">
                 <span>
-                    <input type="button" id="Calcular" placeholder="Cantidad de meses" required onclick="calcularInteres()"
-                        value="Calcular" class="botones">
+                    <input type="button" id="Calcular" placeholder="Cantidad de meses" required
+                        onclick="calcularInteres()" value="Calcular" class="botones">
                 </span>
                 <span>
                     <input type="reset" class="botones">

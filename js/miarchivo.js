@@ -1,3 +1,5 @@
+// import Swal from 'sweetalert2'
+
 // document.addEventListener("click", calcularInteres());
 // const Calcular = document.querySelector("#Calcular");
 
@@ -19,11 +21,11 @@ function calcularInteres() {
     let tasaDeInteres = parseFloat(document.getElementById("tasaDeInteres").value);
     let cuotas = parseInt(document.getElementById("cuotas").value);
     let descuento = parseInt(document.getElementById("descuento").value);
-
+    let Resultadovalidador=[]
     limpiaResultados();
-    let valida = validaDatos(precioLista, tasaDeInteres, cuotas, descuento);
-
-    if (valida == true) {
+    Resultadovalidador = validaDatos(precioLista, tasaDeInteres, cuotas, descuento);
+    
+    if (Resultadovalidador[0] == true) {
         const datos=new DatosUsuario(precioLista,tasaDeInteres,cuotas,descuento)
         
 
@@ -35,6 +37,15 @@ function calcularInteres() {
     }
     else {
         console.log("No se puede hacer calculo")
+        let cadena=""
+        for (elemento of Resultadovalidador[1]){
+            cadena += `El campo "${elemento}" esta vacío <br>`
+        }
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            html: cadena,
+          })
     }
 }
 
@@ -82,40 +93,45 @@ function limpiaResultados() {
 
 function validaDatos(precioLista, tasaDeInteres, cuotas,descuento) {
 
-
+    let arrayFallo=[]
     let valida = true;
 
     let retorno1 = validador(precioLista, "precioLista")
     if (retorno1 == false) {
         valida = false;
+        arrayFallo.push("precioLista")
     }
     let retorno2 = validador(tasaDeInteres, "Tasa de interés")
     if (retorno2 == false) {
         valida = false;
+        arrayFallo.push("Tasa de interés")
     }
     let retorno3 = validador(cuotas, "cuotas")
     if (retorno3 == false) {
         valida = false;
+        arrayFallo.push("cuotas")
     }
     let retorno4 = validador(descuento, "descuento")
     if (retorno4 == false) {
         valida = false;
+        arrayFallo.push("descuento")
     }
-    return valida
+
+    return [valida,arrayFallo]
 }
 
-function validador(entradaValidador, campo) {
+function  validador(entradaValidador, campo) {
     let valida
     if (isNaN(entradaValidador) == true) {
         valida = false;
-        alert(`El campo "${campo}" esta vacío`);
         console.log(entradaValidador)
     }
     else {
         valida = true;
 
     }
-
+        
     return valida
 
 }
+
