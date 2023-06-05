@@ -7,23 +7,29 @@ async function consultaTasa() {
         .then((response) => response.json())
         .then((data) => {//console.log(data)
             const datosDolar = document.querySelector('#dolar')
-            datosDolar.className = ("ContenedorResultados padre")
+            datosDolar.className = ("ContenedorResultados padre cuadroDolar")
 
             data.forEach((elemento) => {
-                console.log(elemento.casa);
 
-                const div = document.createElement("div");
-                div.classList.add("contenedor","padre");
-                div.innerHTML = `
-                    <h4>${elemento.casa.nombre}</h4>
+                if (["Bitcoin", "Dolar Soja", "Dolar", "Argentina"].includes(elemento.casa.nombre)) {
+                    
+                    console.log(elemento.casa.nombre+ " no se muestra")
+                }
+                else {
+                    
+                    const div = document.createElement("div");
+                    div.classList.add("contenedor", "padre","campos","cuadroDolar");
+                    div.innerHTML = `
+                    <h4 class="etiquetaDolar">${elemento.casa.nombre}</h4>
+                    <div class="valoresCyV">
                     <p>Compra: ${elemento.casa.compra}</p>
                     <p>Venta: ${elemento.casa.venta}</p>
-                    <p>% variación -1d: ${elemento.casa.variacion}</p>
-
+                    </div>
                     `
-                datosDolar.append(div)
+                    datosDolar.append(div)
 
-                // <p>Cuerpo: ${elemento.body}</p>
+                    // <p>Cuerpo: ${elemento.body}</p>
+                }
             })
         }
 
