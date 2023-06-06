@@ -7,7 +7,7 @@ async function consultaTasa() {
         .then((response) => response.json())
         .then((data) => {//console.log(data)
             const datosDolar = document.querySelector('#dolar')
-            datosDolar.className = ("ContenedorResultados cuadroDolar")
+            datosDolar.className = ("ContenedorResultados")
 
             data.forEach((elemento) => {
 
@@ -18,13 +18,13 @@ async function consultaTasa() {
                 else {
                     
                     const div = document.createElement("div");
-                    div.classList.add("contenedor","campos","cuadroDolar","margin_0","widht_15perc");
+                    div.classList.add("contenedor","campos","cuadroDolarGrande","margin_0","widht_15perc","margin_3");
                     div.innerHTML = `
                     <div class="cuadroDolarChico margin_0">
-                        <h4 class="etiquetaDolar"><p>${elemento.casa.nombre}</p></h4>
+                        <h4 class="etiquetaDolar margin_0"><p>${elemento.casa.nombre}</p></h4>
                         <div class="valoresCyV">
-                            <p class="font_bold margin_3">Compra:</p> <p class="margin_3">${elemento.casa.compra}</p>
-                            <p class="font_bold margin_3">Venta:</p> <p class="margin_3">${elemento.casa.venta}</p>
+                            <div><p class="font_bold margin_0303">Compra:</p> <p class="margin_0303">${elemento.casa.compra}</p></div>
+                            <div><p class="font_bold margin_0303">Venta:</p> <p class="margin_0303">${elemento.casa.venta}</p></div>
                         </div>
                     </div>
                     `
