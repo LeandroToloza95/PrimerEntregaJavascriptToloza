@@ -5,47 +5,49 @@
 
 class DatosUsuario {
     constructor(precio, tasa, cuotas, descuento) {
-        this.precio=precio;
-        this.tasa=tasa;
-        this.cuotas=cuotas;
-        this.descuento=descuento;
+        this.precio = precio;
+        this.tasa = tasa;
+        this.cuotas = cuotas;
+        this.descuento = descuento;
     }
-    
+
 }
 
-document.querySelector("#Calcular").addEventListener("click", calcularInteres());
-
+// document.querySelector("#Calcular").addEventListener("click", calcularInteres());
+// document.querySelector("#recuperaDataStorage").addEventListener("click", recuperaDataStorage());
 function calcularInteres() {
 
     let precioLista = parseFloat(document.getElementById("precioLista").value);
     let tasaDeInteres = parseFloat(document.getElementById("tasaDeInteres").value);
     let cuotas = parseInt(document.getElementById("cuotas").value);
     let descuento = parseInt(document.getElementById("descuento").value);
-    let Resultadovalidador=[]
+    let Resultadovalidador = []
     limpiaResultados();
     Resultadovalidador = validaDatos(precioLista, tasaDeInteres, cuotas, descuento);
-    
+
     if (Resultadovalidador[0] == true) {
-        const datos=new DatosUsuario(precioLista,tasaDeInteres,cuotas,descuento)
-        
+        const datos = new DatosUsuario(precioLista, tasaDeInteres, cuotas, descuento)
+        guardaEnLocalStorage(precioLista, tasaDeInteres, cuotas, descuento)
 
         for (let i = 0; i < cuotas; i++) {
+
             let interes = calculo(precioLista, tasaDeInteres);
             escribeResultados(precioLista.toFixed(2), interes.toFixed(2), (interes + precioLista).toFixed(2), i + 1)
             precioLista += interes;
+
         }
     }
     else {
         console.log("No se puede hacer calculo")
-        let cadena=""
-        for (elemento of Resultadovalidador[1]){
-            cadena += `El campo "${elemento}" esta vacío <br>`
+        let cadena = ""
+        for (elemento of Resultadovalidador[1]) {
+            cadena += `<p class="fontStyleAlert margin_0">El campo "${elemento}" esta vacío</p> `
         }
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            html: cadena,
-          })
+            html: cadena,//cadena += `<p class="fontStyleAlert margin_0">El campo "${elemento}" esta vacío</p> `
+        })
     }
 }
 
@@ -91,9 +93,9 @@ function limpiaResultados() {
 
 }
 
-function validaDatos(precioLista, tasaDeInteres, cuotas,descuento) {
+function validaDatos(precioLista, tasaDeInteres, cuotas, descuento) {
 
-    let arrayFallo=[]
+    let arrayFallo = []
     let valida = true;
 
     let retorno1 = validador(precioLista, "precioLista")
@@ -117,10 +119,10 @@ function validaDatos(precioLista, tasaDeInteres, cuotas,descuento) {
         arrayFallo.push("descuento")
     }
 
-    return [valida,arrayFallo]
+    return [valida, arrayFallo]
 }
 
-function  validador(entradaValidador, campo) {
+function validador(entradaValidador, campo) {
     let valida
     if (isNaN(entradaValidador) == true) {
         valida = false;
@@ -130,8 +132,50 @@ function  validador(entradaValidador, campo) {
         valida = true;
 
     }
-        
+
     return valida
 
 }
 
+function guardaEnLocalStorage(precioLista, tasaDeInteres, cuotas, descuento) {
+    localStorage.setItem('precioLista', precioLista)
+    localStorage.setItem('tasaDeInteres', tasaDeInteres)
+    localStorage.setItem('cuotas', cuotas)
+    localStorage.setItem('descuento', descuento)
+}
+
+function recuperaData() {
+    let precioLista = localStorage.getItem('precioLista')
+    let tasaDeInteres = localStorage.getItem('tasaDeInteres')
+    let cuotas = localStorage.getItem('cuotas')
+    let descuento = localStorage.getItem('descuento')
+
+    if (precioLista === null && tasaDeInteres === null && cuotas === null && descuento === null) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Sin datos!',
+            html: `<p class="fontStyleAlert margin_0">No existe datos de consultas anteriores</p> `
+        })
+    }
+    else{
+        escribeEnForm(precioLista,tasaDeInteres,cuotas,descuento)
+    }
+
+}
+
+function escribeEnForm(precioLista,tasaDeInteres,cuotas,descuento){
+    document.getElementById("precioLista").value=precioLista;
+    document.getElementById("tasaDeInteres").value=tasaDeInteres;
+    document.getElementById("cuotas").value=cuotas;
+    document.getElementById("descuento").value=descuento;
+
+}
+
+function LimpiaDataStrg() {
+    localStorage.clear()
+    Swal.fire({
+        icon: 'info',
+        title: 'Realizado!',
+        html: `<p class="fontStyleAlert margin_0">Se limpio historial</p> `
+    })
+}

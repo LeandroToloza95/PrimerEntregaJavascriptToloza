@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto+Mono:wght@100&display=swap"
         rel="stylesheet">
-    
+
 </head>
 
 <body>
@@ -24,7 +24,10 @@
     <div class="contenedor padre">
         <form action="">
             <div class="campos">
-                <label for="precioLista" class="etiquetas">Precio de lista (sin descuento)</label>
+                <label for="precioLista" class="etiquetas">Capital a invertir</label> 
+
+                <!-- Segunda version de app -->
+                <!-- <label for="precioLista" class="etiquetas">Precio de lista (sin descuento)</label>  -->
                 <input type="number" id="precioLista" placeholder="Ingrese monto a invertir en pesos [ARS]" required
                     autofocus class="input">
             </div>
@@ -34,11 +37,16 @@
                     class="input">
             </div>
             <div class="campos">
-                <label for="cuotas" class="etiquetas">Cantidad de cuotas</label>
-                <input type="number" id="cuotas" placeholder="Cuotas" required class="input">
+                <label for="cuotas" class="etiquetas">Meses</label>
+                <!-- Segunda version de app -->
+                <!-- <label for="cuotas" class="etiquetas">Cantidad de cuotas</label> -->
+                <input type="number" id="cuotas" placeholder="Cantidad de meses" required class="input">
             </div>
             <div class="campos">
-                <label for="descuento" class="etiquetas">% descuento Pago en Efectivo</label>
+                <label for="descuento" class="etiquetas">% descuento</label>
+
+                <!-- Segunda version de app -->
+                <!-- <label for="descuento" class="etiquetas">% descuento Pago en Efectivo</label> -->
                 <input type="number" id="descuento" placeholder="% descuento" required class="input">
             </div>
             <div class="contenedorbotones">
@@ -48,6 +56,11 @@
                 </span>
                 <span>
                     <input type="reset" class="botones">
+                    <input type="button" id="recuperaDataStorage" required onclick="recuperaData()"
+                        value="Consulta anterior" class="botones">
+                    <input type="button" id="LimpiaDataStorage" required onclick="LimpiaDataStrg()"
+                        value="Limpia historial" class="botones">
+                        
                 </span>
             </div>
         </form>

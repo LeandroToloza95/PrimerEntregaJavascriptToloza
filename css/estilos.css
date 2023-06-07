@@ -24,6 +24,10 @@
     flex-wrap: wrap;
 }
 
+.fontStyleAlert{
+    font-family: 'Poppins', 'Roboto Mono';
+}
+
 .etiquetas {
     width: 280px;
     font-style: bold;
